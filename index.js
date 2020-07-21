@@ -49,7 +49,12 @@ function selectDay(selectedDay) {
             wind.getElementsByClassName('value')[0].innerHTML = `${day.windSpeed} km/h`;
             document.getElementById('weather-desc').innerHTML = day.type;
             document.getElementById('weather-temp').innerHTML = `${day.temp}°C`;
-            document.getElementById('date-dayname').innerHTML = dayName;
+            console.log(dayName, today.getDay());
+            for(let name of week) {
+                if ( name.includes(selectedDay) ) {
+                    document.getElementById('date-dayname').innerHTML = name;
+                }
+            }
             document.getElementById('date-day').innerHTML = `${year}-${month}-${today.getDate()}`;
         } else {
             data.classList.remove('active');
