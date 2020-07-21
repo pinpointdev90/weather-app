@@ -5,16 +5,16 @@ const day = today.getDate();
 const dayName = week[today.getDay()];
 
 const weatherData = {
-    tempUnit: 'C',
+    tempUnit: '°C',
     windSpeedUnit: 'm/s',
     days: [
-        { day: 'Sun', temp: 17, windDirection: 'south-east', windSpeed: 20, type: 'cloudy' },
-        { day: 'Mon', temp: 22, windDirection: 'north-east', windSpeed: 10 , type:'sunny' },
-        { day: 'Tue', temp: 14, windDirection: 'north-west', windSpeed: 14, type: 'rainy' },
-        { day: 'Wed', temp: 17, windDirection: 'south-east', windSpeed: 20, type: 'cloudy' },
-        { day: 'Thu', temp: 18, windDirection: 'south-east', windSpeed: 25, type: 'sunny' },
-        { day: 'Fri', temp: 22, windDirection: 'south-east', windSpeed: 20, type: 'sunny' },
-        { day: 'Sat', temp: 7, windDirection: 'south-east', windSpeed: 20, type: 'cloudy' },
+        { day: 'Sun', temp: 17, windDirection: 'south-east', windSpeed: 20, type: 'cloudy', feather: 'cloud' },
+        { day: 'Mon', temp: 22, windDirection: 'north-east', windSpeed: 10 , type:'sunny', feather: 'sun' },
+        { day: 'Tue', temp: 14, windDirection: 'north-west', windSpeed: 14, type: 'rainy', feather: 'cloud-rain' },
+        { day: 'Wed', temp: 17, windDirection: 'south-east', windSpeed: 20, type: 'cloudy', feather: 'cloud' },
+        { day: 'Thu', temp: 18, windDirection: 'south-east', windSpeed: 25, type: 'sunny', feather: 'sun' },
+        { day: 'Fri', temp: 22, windDirection: 'south-east', windSpeed: 20, type: 'sunny', feather: 'sun' },
+        { day: 'Sat', temp: 7, windDirection: 'south-east', windSpeed: 20, type: 'cloudy', feather: 'cloud' },
     ]
 }
 
@@ -27,13 +27,13 @@ for (let day of weatherData.days) {
         let humidity = document.getElementById('humidity');
         humidity.getElementsByClassName('value')[0].innerHTML = day.type;
         let wind = document.getElementById('wind');
-        wind.getElementsByClassName('value')[0].innerHTML = `${day.windSpeed} km/h`;
+        wind.getElementsByClassName('value')[0].innerHTML = `${day.windSpeed} ${weatherData.windSpeedUnit}`;
         document.getElementById('weather-desc').innerHTML = day.type;
-        document.getElementById('weather-temp').innerHTML = `${day.temp}°C`;
+        document.getElementById('weather-temp').innerHTML = `${day.temp}${weatherData.tempUnit}`;
         document.getElementById('date-dayname').innerHTML = dayName;
         document.getElementById('date-day').innerHTML = `${year}-${month}-${today.getDate()}`;
     }
-    data.innerHTML = `<i class="day-icon" data-feather="cloud"></i><span class="day-name">${day.day}</span><span class="day-temp">${day.temp}°C</span>`;
+    data.innerHTML = `<i class="day-icon" data-feather="${day.feather}"></i><span class="day-name">${day.day}</span><span class="day-temp">${day.temp}${weatherData.tempUnit}</span>`;
 }
 
 function selectDay(selectedDay) {
@@ -46,10 +46,15 @@ function selectDay(selectedDay) {
             let humidity = document.getElementById('humidity');
             humidity.getElementsByClassName('value')[0].innerHTML = day.type;
             let wind = document.getElementById('wind');
-            wind.getElementsByClassName('value')[0].innerHTML = `${day.windSpeed} km/h`;
+            wind.getElementsByClassName('value')[0].innerHTML = `${day.windSpeed} ${weatherData.windSpeedUnit}`;
             document.getElementById('weather-desc').innerHTML = day.type;
-            document.getElementById('weather-temp').innerHTML = `${day.temp}°C`;
-            console.log(dayName, today.getDay());
+            document.getElementById('weather-temp').innerHTML = `${day.temp}${weatherData.tempUnit}`;
+            document.getElementById('weather-icon').remove();
+            var node = document.createElement("i");
+            node.className = 'weather-icon';
+            node.id = 'weather-icon';
+            let feather = document.createRange().createContextualFragment(`<i class="weather-icon" id="weather-icon" data-feather="${day.feather}"></i>`);
+            document.getElementById('weather-container').insertBefore(feather, document.getElementById('weather-container').firstChild);
             for(let name of week) {
                 if ( name.includes(selectedDay) ) {
                     document.getElementById('date-dayname').innerHTML = name;
@@ -59,6 +64,7 @@ function selectDay(selectedDay) {
         } else {
             data.classList.remove('active');
         }
-        data.innerHTML = `<i class="day-icon" data-feather="cloud"></i><span class="day-name">${day.day}</span><span class="day-temp">${day.temp}°C</span>`;
+        data.innerHTML = `<i class="day-icon" data-feather="${day.feather}"></i><span class="day-name">${day.day}</span><span class="day-temp">${day.temp}${weatherData.tempUnit}</span>`;
+        feather.replace();
     }
 }

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
     <title>Weather app for JS InternShip Test</title>
+    <script src="https://unpkg.com/feather-icons@4.10.0/dist/feather.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -12,10 +14,9 @@
         <div class="date-container">
             <h2 class="date-dayname" id="date-dayname"></h2>
             <span class="date-day" id="date-day"></span>
-            <i class="location-icon" data-feather="map-pin"></i>
-            <span class="location"></span>
         </div>
-        <div class="weather-container"><i class="weather-icon" data-feather="sun"></i>
+        <div class="weather-container" id="weather-container">
+            <i class="weather-icon" id="weather-icon" data-feather="sun"></i>
             <h1 class="weather-temp" id="weather-temp">29°C</h1>
             <h3 class="weather-desc" id="weather-desc"></h3>
         </div>
@@ -43,10 +44,15 @@
                 <li id="Thu" onclick="selectDay('Thu')"><i class="day-icon" data-feather="cloud-rain"></i><span class="day-name">Thu</span><span class="day-temp">19°C</span></li>
                 <li id="Fri" onclick="selectDay('Fri')"><i class="day-icon" data-feather="cloud-rain"></i><span class="day-name">Fri</span><span class="day-temp">19°C</span></li>
                 <li id="Sat" onclick="selectDay('Sat')"><i class="day-icon" data-feather="cloud-rain"></i><span class="day-name">Sat</span><span class="day-temp">19°C</span></li>
-                <div class="clear"></div>
+<!--                <div class="clear"></div>-->
             </ul>
         </div>
 <!--        <div class="location-container"><button class="location-button"> <i data-feather="map-pin"></i><span>Change location</span></button></div>-->
+        <script>
+            $(document).ready(function(){
+                feather.replace();
+            });
+        </script>
     </div>
     <script type="text/javascript" src="index.js"></script>
 </div>
