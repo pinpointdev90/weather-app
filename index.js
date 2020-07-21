@@ -3,6 +3,34 @@ const today = new Date();
 const year = today.getFullYear(); var month = today.getMonth() + 1;
 const day = today.getDate();
 const dayName = week[today.getDay()];
-document.getElementById('date-dayname').innerHTML = dayName;
-document.getElementById('date-day').innerHTML = `${year}-${month}-${day}`;
-document.getElementById('weather-desc').innerHTML = 'Sunny';
+
+const weatherData = {
+    tempUnit: 'C',
+    windSpeedUnit: 'm/s',
+    days: [
+        { day: 'Sun', temp: 17, windDirection: 'south-east', windSpeed: 20, type: 'cloudy' },
+        { day: 'Mon', temp: 22, windDirection: 'north-east', windSpeed: 10 , type:'sunny' },
+        { day: 'Tue', temp: 14, windDirection: 'north-west', windSpeed: 14, type: 'rainy' },
+        { day: 'Wed', temp: 17, windDirection: 'south-east', windSpeed: 20, type: 'cloudy' },
+        { day: 'Thu', temp: 17, windDirection: 'south-east', windSpeed: 20, type: 'cloudy' },
+        { day: 'Fri', temp: 17, windDirection: 'south-east', windSpeed: 20, type: 'cloudy' },
+        { day: 'Sat', temp: 17, windDirection: 'south-east', windSpeed: 20, type: 'cloudy' },
+    ]
+}
+for (let day of weatherData.days) {
+    let data = document.getElementById(day.day);
+    if (dayName.includes(day.day)) {
+        data.className = 'active'
+        let precipitation = document.getElementById('precipitation');
+        precipitation.getElementsByClassName('value')[0].innerHTML = day.windDirection;
+        let humidity = document.getElementById('humidity');
+        humidity.getElementsByClassName('value')[0].innerHTML = day.type;
+        let wind = document.getElementById('wind');
+        wind.getElementsByClassName('value')[0].innerHTML = `${day.windSpeed} km/h`;
+        document.getElementById('weather-desc').innerHTML = day.type;
+        document.getElementById('weather-temp').innerHTML = `${day.temp}°C`;
+        document.getElementById('date-dayname').innerHTML = dayName;
+        document.getElementById('date-day').innerHTML = `${year}-${month}-${today.getDate()}`;
+    }
+    data.innerHTML = `<i class="day-icon" data-feather="cloud"></i><span class="day-name">${day.day}</span><span class="day-temp">${day.temp}°C</span>`;
+}
