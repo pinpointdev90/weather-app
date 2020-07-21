@@ -31,7 +31,7 @@ for (let day of weatherData.days) {
         document.getElementById('weather-desc').innerHTML = day.type;
         document.getElementById('weather-temp').innerHTML = `${day.temp}${weatherData.tempUnit}`;
         document.getElementById('date-dayname').innerHTML = dayName;
-        document.getElementById('date-day').innerHTML = `${year}-${month}-${today.getDate()}`;
+        document.getElementById('date-day').innerHTML = `${year}/${month}/${today.getDate()}`;
     }
     data.innerHTML = `<i class="day-icon" data-feather="${day.feather}"></i><span class="day-name">${day.day}</span><span class="day-temp">${day.temp}${weatherData.tempUnit}</span>`;
 }
