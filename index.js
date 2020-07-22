@@ -37,6 +37,7 @@ for (let day of weatherData.days) {
 }
 
 function selectDay(selectedDay) {
+    let dayIndex = 0;
     for (let day of weatherData.days) {
         let data = document.getElementById(day.day);
         if (selectedDay === day.day) {
@@ -58,13 +59,15 @@ function selectDay(selectedDay) {
             for(let name of week) {
                 if ( name.includes(selectedDay) ) {
                     document.getElementById('date-dayname').innerHTML = name;
+                    document.getElementById('date-day').innerHTML = `${year}/${month}/${today.getDate() - today.getDay() + dayIndex}`;
                 }
+                dayIndex++;
             }
-            document.getElementById('date-day').innerHTML = `${year}-${month}-${today.getDate()}`;
         } else {
             data.classList.remove('active');
         }
         data.innerHTML = `<i class="day-icon" data-feather="${day.feather}"></i><span class="day-name">${day.day}</span><span class="day-temp">${day.temp}${weatherData.tempUnit}</span>`;
         feather.replace();
+        dayIndex = 0;
     }
 }
